@@ -1,0 +1,27 @@
+apiVersion: v2
+scheduledPipelines:
+- pipeline:
+    name: pipeline1
+    resources:
+      cpu: 2
+      memory: 100GB
+    tags:
+    - id-default
+    tasks:
+    - name: task1
+      command: echo 'hello from pipeline1 task1'
+    - name: task2
+      command: env
+      variables:
+        task2key: task2value
+      dependsOn: ["task1"]
+  startDate: 2019-02-05
+  schedule: "* 10 * * *"
+- pipeline:
+    name: pipeline2
+    resources:
+      cpu: 10
+    tasks:
+    - name: task1
+      command: echo 'hello from pipeline2 task1'
+    schedule: "0 20 * * *"
